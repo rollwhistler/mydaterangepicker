@@ -1,11 +1,13 @@
 language: node_js
 node_js:
-- "6"
-install:
-- npm install
+  - "12"
+addons:
+  chrome: stable
+before_script:
+  - npm install -g @angular/cli@9.0.7
+  - npm install
 script:
-- gulp all
-- npm test
+  - npm run test-lib
 after_success:
-- ./node_modules/.bin/codecov  -f test-output/coverage/json/coverage-final.json
+  - ./node_modules/.bin/codecov  -f test-output/mydaterangepicker/coverage-final.json
 sudo: required

@@ -7,7 +7,7 @@ import {SampleDateRangePickerNormal} from './sample-date-range-picker-normal/ind
 import {SampleDateRangePickerInline} from './sample-date-range-picker-inline/index';
 import {SampleDateRangePickerAccessModifier} from './sample-date-range-picker-access-modifier/index';
 
-import {MyDateRangePickerModule} from '../src/my-date-range-picker/my-date-range-picker.module';
+import {MyDateRangePickerModule} from '../projects/mydaterangepicker/src/lib/mydaterangepicker.module';
 
 @NgModule({
     imports:      [ BrowserModule, ReactiveFormsModule, FormsModule, MyDateRangePickerModule ],

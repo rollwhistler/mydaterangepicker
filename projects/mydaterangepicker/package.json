@@ -1,0 +1,21 @@
+{
+  "name": "mydaterangepicker",
+  "version": "9.0.0",
+  "description": "Angular daterangepicker",
+  "homepage": "https://kekeh.github.io/mydaterangepicker/",
+  "keywords": [
+    "Angular",
+    "daterangepicker"
+  ],
+  "author": "kekeh",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kekeh/mydaterangepicker.git"
+  },
+  "peerDependencies": {
+    "@angular/common": "^9.0.7",
+    "@angular/core": "^9.0.7",
+    "tslib": "^1.10.0"
+  }
+}

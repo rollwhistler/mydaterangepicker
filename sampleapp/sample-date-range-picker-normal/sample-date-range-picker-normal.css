@@ -1,0 +1,20 @@
+.settingstable,
+.pickertable {
+    width: 100%;
+    border: none;
+}
+.settingstable tr td {
+    width: 50%;
+    border: none;
+}
+.pickertable tr td {
+    vertical-align: top;
+}
+.buttondiv {
+    margin: 15px 0;
+}
+.selectedtext {
+    padding: 4px;
+    border-radius: 4px;
+    float: right;
+}

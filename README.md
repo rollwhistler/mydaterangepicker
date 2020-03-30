@@ -1,7 +1,20 @@
 # mydaterangepicker
 
 
-## New version of the component is here: [repository](https://github.com/kekeh/angular-mydatepicker) and [online demo](https://kekeh.github.io/angular-mydatepicker/) 
+**New daterangepicker library**
+
+__If your Angular version is >= 7.2 you can use a new version ([angular-mydatepicker](https://github.com/kekeh/angular-mydatepicker)) of this component:__ 
+* [repository](https://github.com/kekeh/angular-mydatepicker) 
+* [online demo](https://kekeh.github.io/angular-mydatepicker/) 
+
+
+**Version compatibility of this library**
+
+| Library version | Angular version | Branch | Installation |
+| :-------------- | :-------------- | :----- | :----------- |
+| < 9.0.0 | >= 2 and < 9 | master | npm install --save mydaterangepicker@latest| 
+| >= 9.0.0 | >= 9 | angularIvy | npm install --save mydaterangepicker@ng9 | 
+
 
 **Angular date range picker**
 
@@ -33,24 +46,6 @@ To install this component to an external project, follow the procedure:
         bootstrap:    [ MyTestApp ]
     })
     export class MyTestAppModule {}
-    ```
-
-3. If you are using __systemjs__ package loader add the following mydaterangepicker properties to the __System.config__:
-    ```js
-    (function (global) {
-        System.config({
-            paths: {
-                'npm:': 'node_modules/'
-            },
-            map: {
-                // Other components are here...
-
-                'mydaterangepicker': 'npm:mydaterangepicker/bundles/mydaterangepicker.umd.js'
-            },
-            packages: {
-            }
-        });
-    })(this);
     ```
 
 ## Usage
@@ -265,19 +260,10 @@ Value of the __options__ attribute is a type of [IMyDrpOptions](https://github.c
     };
 ```
 
-### selDateRange attribute
-
-Provide the initially chosen date range that will display both in the text input field
-and provide the default for the popped-up selector.
-
-Type of the __selDateRange__ attribute can be a string or an [IMyDateRange](https://github.com/kekeh/mydaterangepicker/blob/master/src/my-date-range-picker/interfaces/my-date-range.interface.ts) object.
-  * the string must be in the following format __dateFormat - dateFormat__ option is. For example '2018-10-09 - 2018-10-19'
-  * the object must be in the IMyDateRange format. For example: {beginDate: {year: 2018, month: 10, day: 9}, endDate: {year: 2018, month: 10, day: 19}}
 
 ### defaultMonth attribute
 
-If __selDateRange__ is not specified, when the calendar is opened, it will
-ordinarily default to selecting the current date. If you would prefer
+When the calendar is opened, it will ordinarily default to selecting the current date range. If you would prefer
 a different year and month to be the default for a freshly chosen date
 picking operation, specify a __defaultMonth__ attribute.
 
@@ -419,9 +405,9 @@ The [sampleapp](https://github.com/kekeh/mydaterangepicker/tree/master/sampleapp
 Online demo is [here](http://kekeh.github.io/mydaterangepicker)
 
 ## Compatibility (tested with)
-* Firefox (latest)
-* Chrome (latest)
-* Chromium (latest)
+* Firefox
+* Chrome
+* Chromium
 * Edge
 * IE11
 * Safari
@@ -436,3 +422,4 @@ Online demo is [here](http://kekeh.github.io/mydaterangepicker)
 * Date range picker
 * Angular2+
 * typescript
+

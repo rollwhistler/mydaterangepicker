@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {IMyDrpOptions, IMyDateRangeModel, IMyDateRange, IMyInputFieldChanged, IMyCalendarViewChanged, IMyDateSelected} from '../../src/my-date-range-picker/interfaces';
-
-declare var require:any;
-const sampleDrpNormalTemplate: string = require('./sample-date-range-picker-normal.html');
+import {IMyDrpOptions, IMyDateRangeModel, IMyDateRange, IMyInputFieldChanged, IMyCalendarViewChanged, IMyDateSelected} from '../../projects/mydaterangepicker/src/lib/interfaces';
 
 @Component({
     selector: 'sample-date-range-picker-normal',
-    template: sampleDrpNormalTemplate
+    styleUrls: ['./sample-date-range-picker-normal.css'],
+    templateUrl: './sample-date-range-picker-normal.html'
 })
 
 export class SampleDateRangePickerNormal implements OnInit {

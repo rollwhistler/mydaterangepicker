@@ -1,13 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {IMyDrpOptions} from '../../src/my-date-range-picker/interfaces';
-
-declare var require:any;
-const amSampleTpl: string = require('./sample-date-range-picker-access-modifier.html');
+import {IMyDrpOptions} from '../../projects/mydaterangepicker/src/lib/interfaces';
 
 @Component({
     selector: 'sample-date-range-picker-access-modifier',
-    template: amSampleTpl
+    styleUrls: ['./sample-date-range-picker-access-modifier.css'],
+    templateUrl: './sample-date-range-picker-access-modifier.html'
 })
 
 export class SampleDateRangePickerAccessModifier implements OnInit {

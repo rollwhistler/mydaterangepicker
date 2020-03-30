@@ -1,13 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnChanges, OnDestroy, SimpleChanges, ElementRef, Renderer, ViewChild, ChangeDetectorRef, ViewEncapsulation, forwardRef } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnChanges, OnDestroy, SimpleChanges, ElementRef, ViewChild, ChangeDetectorRef, ViewEncapsulation, forwardRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { IMyDateRange, IMyDate, IMyMonth, IMyCalendarDay, IMyCalendarMonth, IMyCalendarYear, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateRangeModel, IMyInputFieldChanged, IMyCalendarViewChanged, IMyInputFocusBlur, IMyDateSelected } from "./interfaces/index";
-import { DateRangeUtilService } from "./services/my-date-range-picker.date.range.util.service";
-
-// webpack1_
-declare var require: any;
-const myDrpStyles: string = require("./my-date-range-picker.component.css");
-const myDrpTemplate: string = require("./my-date-range-picker.component.html");
-// webpack2_
+import { DateRangeUtilService } from "./services/mydaterangepicker.date.range.util.service";
 
 export const MYDRP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -23,8 +17,8 @@ enum MonthId {prev = 1, curr = 2, next = 3}
 @Component({
     selector: "my-date-range-picker",
     exportAs: "mydaterangepicker",
-    styles: [myDrpStyles],
-    template: myDrpTemplate,
+    styleUrls: ['./mydaterangepicker.component.css'],
+    templateUrl: './mydaterangepicker.component.html',
     providers: [DateRangeUtilService, MYDRP_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None
 })
@@ -75,8 +69,6 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
     endDate: IMyDate = {year: 0, month: 0, day: 0};
     titleAreaText: string = "";
 
-    globalListener: Function;
-
     // Default options
     opts: IMyOptions = {
         dayLabels: <IMyDayLabels> {su: "Sun", mo: "Mon", tu: "Tue", we: "Wed", th: "Thu", fr: "Fri", sa: "Sat"},
@@ -125,15 +117,26 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
         ariaLabelNextYear: <string> "Next Year"
     };
 
-    constructor(public elem: ElementRef, private renderer: Renderer, private cdr: ChangeDetectorRef, private drus: DateRangeUtilService) {
-        this.globalListener = renderer.listenGlobal("document", "click", (event: any) => {
-            if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
-                this.showSelector = false;
-            }
-            if (this.opts.monthSelector || this.opts.yearSelector) {
-                this.resetMonthYearSelect();
-            }
-        });
+    constructor(public elem: ElementRef, private cdr: ChangeDetectorRef, private drus: DateRangeUtilService) { }
+
+    onClickListener = (evt: MouseEvent) => this.onClickDocument(evt);
+
+    addGlobalListener(): void {
+        document.addEventListener("click", this.onClickListener);
+    }
+
+    removeGlobalListener(): void {
+        document.removeEventListener("click", this.onClickListener);
+    }
+
+    onClickDocument(event: any): void {
+        if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
+            this.showSelector = false;
+            this.removeGlobalListener();
+        }
+        if (this.opts.monthSelector || this.opts.yearSelector) {
+            this.resetMonthYearSelect();
+        }
     }
 
     resetMonthYearSelect(): void {
@@ -267,6 +270,7 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
     onCloseSelector(event: any): void {
         if (event.keyCode === KeyCode.esc && this.showSelector && !this.opts.inline) {
             this.showSelector = false;
+            this.removeGlobalListener();
         }
     }
 
@@ -326,7 +330,7 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
     }
 
     ngOnDestroy(): void {
-        this.globalListener();
+        this.removeGlobalListener();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -393,13 +397,18 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
 
     removeBtnClicked(): void {
         this.clearDateRange();
+        this.removeGlobalListener();
     }
 
     openBtnClicked(): void {
         this.showSelector = !this.showSelector;
         this.cdr.detectChanges();
         if (this.showSelector) {
+            this.addGlobalListener();
             this.setVisibleMonth();
+        }
+        else {
+            this.removeGlobalListener();
         }
     }
 
@@ -506,6 +515,8 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
         let formatted: string = this.formatDate(date);
         this.titleAreaText = this.formatDate(this.beginDate) + " - " + formatted;
         this.dateSelected.emit({type: 2, date: date, formatted: formatted, jsdate: this.getDate(date)});
+
+        this.removeGlobalListener();
     }
 
     onCellKeyDown(event: any, cell: any): void {
@@ -784,3 +795,4 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
         return this.drus.parseDefaultMonth(ms);
     }
 }
+

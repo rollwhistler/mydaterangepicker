@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {IMyDrpOptions, IMyDateRangeModel} from '../../src/my-date-range-picker/interfaces';
-
-declare var require:any;
-const sampleDrpInlineTemplate: string = require('./sample-date-range-picker-inline.html');
+import {IMyDrpOptions, IMyDateRangeModel} from '../../projects/mydaterangepicker/src/lib/interfaces';
 
 @Component({
     selector: 'sample-date-range-picker-inline',
-    template: sampleDrpInlineTemplate
+    styleUrls: ['./sample-date-range-picker-inline.css'],
+    templateUrl: './sample-date-range-picker-inline.html'
 })
 
 export class SampleDateRangePickerInline implements OnInit {

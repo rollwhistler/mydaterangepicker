@@ -1,11 +1,9 @@
-///<reference path="../../node_modules/@types/jasmine/index.d.ts"/>
-
 import {FormsModule} from "@angular/forms";
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-import {MyDateRangePicker} from './my-date-range-picker.component';
-import {FocusDirective} from './directives/my-date-range-picker.focus.directive';
+import {MyDateRangePicker} from './mydaterangepicker.component';
+import {FocusDirective} from './directives/mydaterangepicker.focus.directive';
 
 let comp: MyDateRangePicker;
 let fixture: ComponentFixture<MyDateRangePicker>;
@@ -45,6 +43,7 @@ describe('MyDateRangePicker', () => {
     });
 
     it('set valid date range', () => {
+        fixture.detectChanges();
         comp.selectionDayTxt = '2016-08-22 - 2016-08-23';
         fixture.detectChanges();
         let selection = getElement('.selection');
@@ -1742,84 +1741,6 @@ describe('MyDateRangePicker', () => {
     });
 
     // attributes
-    it('selDateRange - initially selected date range - month as number', () => {
-        comp.selectionDayTxt = '2016-11-04 - 2016-11-18';
-
-        comp.options = {
-            dateFormat: 'yyyy-mm-dd'
-        };
-
-        comp.parseOptions();
-
-        let splitted = comp.selectionDayTxt.split(' - ');
-        comp.beginDate = comp.parseSelectedDate(splitted[0]);
-        comp.endDate = comp.parseSelectedDate(splitted[1]);
-
-        fixture.detectChanges();
-        let selection = getElement('.selection');
-        expect(selection).not.toBe(null);
-        expect(selection.nativeElement.value).toContain(comp.selectionDayTxt);
-
-        fixture.detectChanges();
-        let btnpicker = getElement('.btnpicker');
-        btnpicker.nativeElement.click();
-
-
-        fixture.detectChanges();
-        let selecteddaybegin = getElement('.selecteddaybegin');
-        expect(selecteddaybegin).not.toBe(null);
-        expect(selecteddaybegin.nativeElement.textContent.trim()).toBe('4');
-
-        fixture.detectChanges();
-        let selecteddayend = getElement('.selecteddayend');
-        expect(selecteddayend).not.toBe(null);
-        expect(selecteddayend.nativeElement.textContent.trim()).toBe('18');
-
-        fixture.detectChanges();
-        let range = getElements('.caltable .range');
-        expect(range).not.toBe(null);
-        expect(range.length).toBe(15);
-    });
-
-    it('selDateRange - initially selected date range - mont as text', () => {
-        comp.selectionDayTxt = '04 Nov 2016 - 18 Nov 2016';
-
-        comp.options = {
-            dateFormat: 'dd mmm yyyy'
-        };
-
-        comp.parseOptions();
-
-        let splitted = comp.selectionDayTxt.split(' - ');
-        comp.beginDate = comp.parseSelectedDate(splitted[0]);
-        comp.endDate = comp.parseSelectedDate(splitted[1]);
-
-        fixture.detectChanges();
-        let selection = getElement('.selection');
-        expect(selection).not.toBe(null);
-        expect(selection.nativeElement.value).toContain(comp.selectionDayTxt);
-
-        fixture.detectChanges();
-        let btnpicker = getElement('.btnpicker');
-        btnpicker.nativeElement.click();
-
-
-        fixture.detectChanges();
-        let selecteddaybegin = getElement('.selecteddaybegin');
-        expect(selecteddaybegin).not.toBe(null);
-        expect(selecteddaybegin.nativeElement.textContent.trim()).toBe('4');
-
-        fixture.detectChanges();
-        let selecteddayend = getElement('.selecteddayend');
-        expect(selecteddayend).not.toBe(null);
-        expect(selecteddayend.nativeElement.textContent.trim()).toBe('18');
-
-        fixture.detectChanges();
-        let range = getElements('.caltable .range');
-        expect(range).not.toBe(null);
-        expect(range.length).toBe(15);
-    });
-
     it('defaultMonth - initially selected month', () => {
         comp.selectedMonth = comp.parseSelectedMonth('08/2019');
         comp.parseOptions();
@@ -1855,8 +1776,3 @@ describe('MyDateRangePicker', () => {
         expect(selection.properties['placeholder']).toBe(comp.placeholder);
     });
 });
-
-
-
-
-
