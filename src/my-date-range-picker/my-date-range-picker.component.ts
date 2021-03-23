@@ -75,8 +75,6 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
     endDate: IMyDate = {year: 0, month: 0, day: 0};
     titleAreaText: string = "";
 
-    globalListener: Function;
-
     // Default options
     opts: IMyOptions = {
         dayLabels: <IMyDayLabels> {su: "Sun", mo: "Mon", tu: "Tue", we: "Wed", th: "Thu", fr: "Fri", sa: "Sat"},
@@ -125,15 +123,25 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
         ariaLabelNextYear: <string> "Next Year"
     };
 
-    constructor(public elem: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef, private drus: DateRangeUtilService) {
-        this.globalListener = renderer.listenGlobal("document", "click", (event: any) => {
-            if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
-                this.showSelector = false;
-            }
-            if (this.opts.monthSelector || this.opts.yearSelector) {
-                this.resetMonthYearSelect();
-            }
-        });
+    constructor(public elem: ElementRef, private cdr: ChangeDetectorRef, private drus: DateRangeUtilService) {
+        
+    }
+
+    onClickListener(event: any) {
+        if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
+            this.showSelector = false;
+        }
+        if (this.opts.monthSelector || this.opts.yearSelector) {
+            this.resetMonthYearSelect();
+        }
+    }
+
+    addGlobalListener(): void {
+        document.addEventListener("click", this.onClickListener);
+    }
+
+    removeGlobalListener(): void {
+        document.removeEventListener("click", this.onClickListener);
     }
 
     resetMonthYearSelect(): void {
@@ -326,7 +334,7 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
     }
 
     ngOnDestroy(): void {
-        this.globalListener();
+        this.removeGlobalListener();
     }
 
     ngOnChanges(changes: SimpleChanges) {
