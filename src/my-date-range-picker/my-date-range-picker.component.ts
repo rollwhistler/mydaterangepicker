@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, OnDestroy, SimpleChanges, ElementRef, Renderer, ViewChild, ChangeDetectorRef, ViewEncapsulation, forwardRef } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnChanges, OnDestroy, SimpleChanges, ElementRef, Renderer2, ViewChild, ChangeDetectorRef, ViewEncapsulation, forwardRef } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { IMyDateRange, IMyDate, IMyMonth, IMyCalendarDay, IMyCalendarMonth, IMyCalendarYear, IMyWeek, IMyDayLabels, IMyMonthLabels, IMyOptions, IMyDateRangeModel, IMyInputFieldChanged, IMyCalendarViewChanged, IMyInputFocusBlur, IMyDateSelected } from "./interfaces/index";
 import { DateRangeUtilService } from "./services/my-date-range-picker.date.range.util.service";
@@ -125,7 +125,7 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
         ariaLabelNextYear: <string> "Next Year"
     };
 
-    constructor(public elem: ElementRef, private renderer: Renderer, private cdr: ChangeDetectorRef, private drus: DateRangeUtilService) {
+    constructor(public elem: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef, private drus: DateRangeUtilService) {
         this.globalListener = renderer.listenGlobal("document", "click", (event: any) => {
             if (this.showSelector && event.target && this.elem.nativeElement !== event.target && !this.elem.nativeElement.contains(event.target)) {
                 this.showSelector = false;

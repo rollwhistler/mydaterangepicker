@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer, AfterViewInit, Input } from "@angular/core";
+import { Directive, ElementRef, Renderer2, AfterViewInit, Input } from "@angular/core";
 
 @Directive({
     selector: "[mydrpfocus]"
@@ -7,7 +7,7 @@ import { Directive, ElementRef, Renderer, AfterViewInit, Input } from "@angular/
 export class FocusDirective implements AfterViewInit {
     @Input("mydrpfocus") value: string;
 
-    constructor(private el: ElementRef, private renderer: Renderer) {}
+    constructor(private el: ElementRef, private renderer: Renderer2) {}
 
     // Focus to element: if value 0 = don't set focus, 1 = set only focus
     ngAfterViewInit() {
